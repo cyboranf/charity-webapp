@@ -9,15 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 
-@Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-    void deleteAllById(Iterable<? extends Long> categories);
 
-    List<Category> findAll();
-
-    Optional<Category> findById(Long id);
-
-    Category save(Category category);
 
 }

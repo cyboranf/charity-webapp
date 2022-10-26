@@ -4,11 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Entity
 @Table(name = "institution")
 public class Institution {
@@ -22,4 +18,6 @@ public class Institution {
 
     @Column(name = "description")
     private String description;
+
+
 }
