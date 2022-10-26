@@ -8,11 +8,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 @Entity
 @Table(name = "donation")
 public class Donation {
@@ -22,9 +18,9 @@ public class Donation {
     private long id;
     @Column(name = "quantity")
     private int quantity;
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Category> categories = new ArrayList<>();
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne (fetch = FetchType.EAGER)
     private Institution institution;
     @Column(name = "street")
     private String street;
