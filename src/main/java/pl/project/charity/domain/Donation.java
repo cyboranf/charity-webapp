@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -21,11 +22,10 @@ public class Donation {
     private long id;
     @Column(name = "quantity")
     private int quantity;
-    @OneToMany
-    @Column(name = "category_list")
-    private List<Category> categoryList;
-//    @Column(name = "institution")
-//    private Institution institution;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Category> categories = new ArrayList<>();
+    @OneToOne(fetch = FetchType.EAGER)
+    private Institution institution;
     @Column(name = "street")
     private String street;
     @Column(name = "city")
