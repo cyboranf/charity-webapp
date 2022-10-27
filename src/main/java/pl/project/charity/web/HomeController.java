@@ -4,14 +4,32 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import pl.project.charity.domain.Donation;
+import pl.project.charity.dto.Summary;
+import pl.project.charity.service.CategoryService;
+import pl.project.charity.service.DonationService;
+import pl.project.charity.service.InstitutionService;
+
+import java.util.List;
 
 
 @Controller
 public class HomeController {
+    private final CategoryService categoryService;
+    private final DonationService donationService;
+    private final InstitutionService institutionService;
 
+    public HomeController(CategoryService categoryService, DonationService donationService, InstitutionService institutionService) {
+        this.categoryService = categoryService;
+        this.donationService = donationService;
+        this.institutionService = institutionService;
+    }
 
     @RequestMapping("/")
-    public ModelAndView homeAction(Model model){
-        return new ModelAndView("index");
+    public String homeAction(Model model) {
+        model.addAttribute("institutions", institutionService.findAll());
+        model.addAttribute("summary", donationService.allGifts(donationService.findAll()));
+
+        return "index";
     }
 }
