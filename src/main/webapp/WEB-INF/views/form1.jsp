@@ -5,7 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <jsp:include page="header.jsp"/>
-<section class="form--steps">
+<section id="donation" class="form--steps">
     <div class="form--steps-instructions">
         <div class="form--steps-container">
             <h3>Ważne!</h3>
@@ -28,7 +28,7 @@
     <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/4</div>
 
-        <form:form action="/donation/add" method="post" modelAttribute="categories">
+        <form:form action="add2" method="post" modelAttribute="categories">
             <div data-step="1" class="active">
                 <h3>Zaznacz co chcesz oddać:</h3>
 
@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="form-group form-group--buttons">
-                    <button type="submit" class="btn next-step">Dalej</button>
+                  <button type="submit" class="btn next-step">Dalej</button>
                 </div>
             </div>
 
