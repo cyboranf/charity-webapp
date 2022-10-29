@@ -39,6 +39,7 @@ public class DonationController {
         return "form2";
     }
 
+    //do jednego forma
     @PostMapping("/add3")
     public String postForm3(@ModelAttribute Donation donations){
         return "form3";
