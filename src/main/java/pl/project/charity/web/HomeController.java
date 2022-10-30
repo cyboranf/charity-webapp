@@ -3,14 +3,9 @@ package pl.project.charity.web;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-import pl.project.charity.domain.Donation;
-import pl.project.charity.dto.Summary;
 import pl.project.charity.service.CategoryService;
 import pl.project.charity.service.DonationService;
 import pl.project.charity.service.InstitutionService;
-
-import java.util.List;
 
 
 @Controller
@@ -28,7 +23,8 @@ public class HomeController {
     @RequestMapping("/")
     public String homeAction(Model model) {
         model.addAttribute("institutions", institutionService.findAll());
-        model.addAttribute("summary", donationService.allGifts(donationService.findAll()));
+        model.addAttribute("quantity", donationService.quantityOfBags());
+        model.addAttribute("donationsSum", donationService.quantityOfDonations());
 
         return "index";
     }
