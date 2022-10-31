@@ -12,6 +12,7 @@ import pl.project.charity.service.DonationService;
 import pl.project.charity.service.InstitutionService;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -30,21 +31,21 @@ public class DonationController {
 
 
     @GetMapping("/add")
-    public String showForm() {
-        return "form1";
+    public String donationForm(Model model) {
+        model.addAttribute("donation", new Donation());
+        return "form";
     }
 
-    @PostMapping("/add2")
-    public String postForm2(@ModelAttribute Donation donations) {
-        return "form2";
-    }
+    @PostMapping("/add")
+    public String procesDonationForm(@Valid Donation donation, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("donation",new Donation());
+            return "form";
+        }
 
-    //do jednego forma
-    @PostMapping("/add3")
-    public String postForm3(@ModelAttribute Donation donations){
-        return "form3";
-    }
 
+        return "form-confirmation";
+    }
 
 
 
