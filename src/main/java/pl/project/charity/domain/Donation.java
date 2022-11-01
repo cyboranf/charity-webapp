@@ -29,9 +29,9 @@ public class Donation {
     @Column(name = "zip_code")
     private  String zipCode;
     @Column(name = "date")
-    private LocalDate date;
+    private LocalDate pickUpDate;
     @Column(name = "time")
-    private LocalTime time;
+    private LocalTime pickUpTime;
     @Column(name = "pick_up_comment")
     private String pickUpComment;
 
