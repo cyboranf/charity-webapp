@@ -21,6 +21,9 @@ public class DonationService {
         return donationRepository.findById(id);
     }
 
+    public void save(Donation donation){
+        donationRepository.save(donation);
+    }
     public int quantityOfBags() {
         try {
             return donationRepository.quantityOfAllBags();
