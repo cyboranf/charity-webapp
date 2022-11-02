@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<%@include file="header.jsp"%>
+<%@include file="header.jsp" %>
 <div class="slogan container container--90">
     <div class="slogan--item">
         <h1>
@@ -55,9 +55,8 @@
     <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/4</div>
 
-        <form:form action="/add" method="post" modelAttribute="donation">
+        <form:form method="post" modelAttribute="donation">
             <!-- STEP 1: class .active is switching steps -->
-
             <div data-step="1" class="active">
                 <h3>Zaznacz co chcesz oddać:</h3>
                 <c:forEach items="${categories}" var="category">
@@ -72,7 +71,7 @@
                 </c:forEach>
 
                 <div class="form-group form-group--buttons">
-                    <button type="submit" class="btn next-step">Dalej</button>
+                    <button type="button" class="btn next-step">Dalej</button>
                 </div>
             </div>
 
@@ -83,13 +82,14 @@
                 <div class="form-group form-group--inline">
                     <label>
                         Liczba 60l worków:
-                        <form:input path="quantity" type="number" name="bags" step="1" min="1"/>
+                        <form:input id="quantity" type="number" step="1" min="1" path="quantity"/><form:errors
+                            path="quantity" cssClass="error"/>
                     </label>
                 </div>
 
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step">Wstecz</button>
-                    <button type="submit" class="btn next-step">Dalej</button>
+                    <button type="button" class="btn next-step">Dalej</button>
                 </div>
             </div>
 
@@ -116,6 +116,101 @@
                 </div>
             </div>
 
+            <!-- STEP 5 -->
+            <div data-step="4">
+                <h3>Podaj adres oraz termin odbioru rzecz przez kuriera:</h3>
+
+                <div class="form-section form-section--columns">
+                    <div class="form-section--column">
+                        <h4>Adres odbioru</h4>
+                        <div class="form-group form-group--inline">
+                            <label> Ulica <form:input path="street" id="street"/><form:errors path="street"
+                                                                                              cssClass="error"/> </label>
+                        </div>
+
+                        <div class="form-group form-group--inline">
+                            <label> Miasto
+                                <form:input path="city" id="city"/><form:errors path="city" cssClass="error"/>
+                            </label>
+                        </div>
+
+                        <div class="form-group form-group--inline">
+                            <label>
+                                Kod pocztowy <form:input id="zipCode" path="zipCode"/><form:errors path="zipCode"
+                                                                                                   cssClass="error"/>
+                            </label>
+                        </div>
+
+                    </div>
+
+                    <div class="form-section--column">
+                        <h4>Termin odbioru</h4>
+                        <div class="form-group form-group--inline">
+                            <label> Data <form:input id="date" path="pickUpDate" type="date"/>
+                                <form:errors path="pickUpDate" cssClass="error"/>
+                            </label>
+                        </div>
+
+                        <div class="form-group form-group--inline">
+                            <label> Godzina <form:input id="time" path="pickUpTime" type="time"/><form:errors
+                                    path="pickUpTime" cssClass="error"/> </label>
+                        </div>
+
+                        <div class="form-group form-group--inline">
+                            <label>
+                                Uwagi dla kuriera
+                                <form:textarea id="comments" path="pickUpComment" rows="5"></form:textarea>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-group--buttons">
+                    <button type="button" class="btn prev-step">Wstecz</button>
+                    <button type="button" class="btn next-step">Dalej</button>
+                </div>
+            </div>
+
+            <!-- STEP 6 -->
+            <div data-step="5">
+                <h3>Podsumowanie Twojej darowizny</h3>
+
+                <div class="summary">
+                    <div class="form-section">
+                        <h4>Oddajesz:</h4>
+                        <ul>
+                            <li>
+                                <span class="icon icon-bag"></span>
+                                <span class="summary--text" id="bags-categories"></span>
+                            </li>
+
+                            <li>
+                                <span class="icon icon-hand"></span>
+                                <span id="institutionSpan"></span>
+                                <span class="summary--text"></span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="form-section form-section--columns address">
+                        <div class="form-section--column">
+                            <h4>Adres odbioru:</h4>
+                            <ul id="address">
+                            </ul>
+                        </div>
+
+                        <div class="form-section--column">
+                            <h4>Termin odbioru:</h4>
+                            <ul id="shipping">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group form-group--buttons">
+                    <button type="button" class="btn prev-step">Wstecz</button>
+                    <button type="submit" class="btn">Potwierdzam</button>
+                </div>
+            </div>
         </form:form>
     </div>
 </section>
