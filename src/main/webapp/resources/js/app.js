@@ -164,6 +164,33 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$step.parentElement.hidden = this.currentStep >= 5;
 
       // TODO: get data from inputs and show them in summary
+      document.getElementById("summaryQuantity").textContent = "liczba worków: " + document.getElementById("quantity").value;
+
+      const summaryCategories = document.getElementById("listOfCategories");
+      const categories = document.querySelectorAll('input[type=checkbox]:checked');
+
+      const namesOfCategories = function (){
+        let namesListOfCategories = [];
+        for (let checkbox of categories) {
+          namesListOfCategories.push(document.getElementById(checkbox.id).nextElementSibling.nextElementSibling.nextElementSibling.textContent);
+        }
+        return namesListOfCategories;
+      }
+      summaryCategories.textContent = namesOfCategories().join(" , ");
+
+      const institution = document.querySelector('input[type=radio]:checked');
+      document.getElementById("summaryInstitution").textContent = document.getElementById(institution.id).nextElementSibling.nextElementSibling.firstElementChild.textContent;
+
+      document.getElementById("summaryCity").textContent = document.getElementById("city").value;
+      document.getElementById("summaryStreet").textContent = document.getElementById("street").value;
+      document.getElementById("summaryZipCode").textContent = document.getElementById("zipCode").value;
+      document.getElementById("summaryDate").textContent = document.getElementById("pickUpDate").value;
+      document.getElementById("summaryTime").textContent = document.getElementById("pickUpTime").value;
+      document.getElementById("summaryComment").textContent = document.getElementById("pickUpComment").value;
+
+      this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 5;
+      this.$step.parentElement.hidden = this.currentStep >= 5;
+
     }
 
   }

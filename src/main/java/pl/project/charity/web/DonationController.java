@@ -42,8 +42,7 @@ public class DonationController {
             model.addAttribute("donation",new Donation());
             return "form";
         }
-
-
+        donationService.save(donation);
         return "form-confirmation";
     }
 
@@ -59,10 +58,6 @@ public class DonationController {
         return institutionService.findAll();
     }
 
-    @ModelAttribute("donation")
-    public Donation donationSession() {
-        return new Donation();
-    }
 
 
 }

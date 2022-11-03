@@ -146,20 +146,20 @@
                     <div class="form-section--column">
                         <h4>Termin odbioru</h4>
                         <div class="form-group form-group--inline">
-                            <label> Data <form:input id="date" path="pickUpDate" type="date"/>
+                            <label> Data <form:input id="pickUpDate" path="pickUpDate" type="date"/>
                                 <form:errors path="pickUpDate" cssClass="error"/>
                             </label>
                         </div>
 
                         <div class="form-group form-group--inline">
-                            <label> Godzina <form:input id="time" path="pickUpTime" type="time"/><form:errors
+                            <label> Godzina <form:input id="pickUpTime" path="pickUpTime" type="time"/><form:errors
                                     path="pickUpTime" cssClass="error"/> </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
                                 Uwagi dla kuriera
-                                <form:textarea id="comments" path="pickUpComment" rows="5"></form:textarea>
+                                <form:textarea id="pickUpComment" path="pickUpComment" rows="5"></form:textarea>
                             </label>
                         </div>
                     </div>
@@ -180,27 +180,40 @@
                         <ul>
                             <li>
                                 <span class="icon icon-bag"></span>
-                                <span class="summary--text" id="bags-categories"></span>
-                            </li>
+                                <span id="summaryQuantity" class="summary--text"
+                                >liczba worków</span
+                                >
 
+                            </li>
+                            <li>
+                                <span class="summary--text">Kategoria:&nbsp</span>
+                                <span id="listOfCategories"></span>
+                            </li>
                             <li>
                                 <span class="icon icon-hand"></span>
-                                <span id="institutionSpan"></span>
-                                <span class="summary--text"></span>
+                                <span id="summaryInstitution" class="summary--text"
+                                >wybrana fundacja</span
+                                >
                             </li>
                         </ul>
                     </div>
 
-                    <div class="form-section form-section--columns address">
+                    <div class="form-section form-section--columns">
                         <div class="form-section--column">
                             <h4>Adres odbioru:</h4>
-                            <ul id="address">
+                            <ul>
+                                <li id="summaryStreet">street</li>
+                                <li id="summaryCity">city</li>
+                                <li id="summaryZipCode">zipCode</li>
                             </ul>
                         </div>
 
                         <div class="form-section--column">
                             <h4>Termin odbioru:</h4>
-                            <ul id="shipping">
+                            <ul>
+                                <li id="summaryDate">date</li>
+                                <li id="summaryTime">time</li>
+                                <li id="summaryComment">comment</li>
                             </ul>
                         </div>
                     </div>
