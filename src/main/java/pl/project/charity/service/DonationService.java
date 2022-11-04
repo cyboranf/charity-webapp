@@ -21,9 +21,10 @@ public class DonationService {
         return donationRepository.findById(id);
     }
 
-    public void save(Donation donation){
-        donationRepository.save(donation);
+    public Donation save(Donation donation) {
+        return donationRepository.save(donation);
     }
+
     public int quantityOfBags() {
         try {
             return donationRepository.quantityOfAllBags();
@@ -33,10 +34,10 @@ public class DonationService {
     }
 
     public int quantityOfDonations() {
-     try{
-         return donationRepository.quantityOfAllDonations();
-     }catch (NullPointerException exception){
-         return 0;
-     }
+        try {
+            return donationRepository.quantityOfAllDonations();
+        } catch (NullPointerException exception) {
+            return 0;
+        }
     }
 }

@@ -187,7 +187,7 @@
                             </li>
                             <li>
                                 <span class="summary--text">Kategoria:&nbsp</span>
-                                <span id="listOfCategories"></span>
+                                <span id="categories" class="summary--text">Kategoria</span>
                             </li>
                             <li>
                                 <span class="icon icon-hand"></span>
