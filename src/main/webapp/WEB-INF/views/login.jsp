@@ -23,7 +23,7 @@
         </div>
 
         <div class="form-group form-group--buttons">
-            <button class="btn" type="submit">Zaloguj się</button>
+            <a href="/" class="btn" type="submit">Zaloguj się</a>
             <a href="/register" class="btn btn--without-border">Załóż konto</a>
             <a href="/password" class="btn btn--without-border">Nie pamiętam hasła</a>
         </div>
