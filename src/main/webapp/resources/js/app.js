@@ -166,13 +166,13 @@ document.addEventListener("DOMContentLoaded", function() {
       // TODO: get data from inputs and show them in summary
       document.getElementById("summaryQuantity").textContent = "liczba worków: " + document.getElementById("quantity").value;
 
-      const summaryCategories = document.getElementById("categories");
+      const summaryCategories = document.getElementById("listOfCategories");
       const categories = document.querySelectorAll('input[type=checkbox]:checked');
 
       const namesOfCategories = function (){
         let namesListOfCategories = [];
-        for (let category of categories) {
-          namesListOfCategories.push(category.nextElementSibling.nextElementSibling.textContent);
+        for (let checkbox of categories) {
+          namesListOfCategories.push(document.getElementById(checkbox.id).nextElementSibling.nextElementSibling.nextElementSibling.textContent);
         }
         return namesListOfCategories;
       }

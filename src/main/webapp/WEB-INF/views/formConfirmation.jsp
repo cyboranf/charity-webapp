@@ -14,7 +14,6 @@
         informacje o odbiorze.
     </h2>
 </div>
-</header>
 
 <%@include file="footer.jsp" %>
 
