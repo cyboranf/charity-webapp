@@ -14,7 +14,15 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User save(User user){
+    public User save(User user) {
         return userRepository.save(user);
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findFirstByEmail(email);
+    }
+
+    public User findById(Long id) {
+        return userRepository.findFirstById(id);
     }
 }
