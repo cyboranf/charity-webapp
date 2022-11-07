@@ -39,11 +39,11 @@ public class DonationController {
     @PostMapping("/add")
     public String procesDonationForm(@Valid Donation donation, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("donation",new Donation());
+            model.addAttribute("donation", donation);
             return "form";
         }
         donationService.save(donation);
-        return "form-confirmation";
+        return "formConfirmation";
     }
 
 
