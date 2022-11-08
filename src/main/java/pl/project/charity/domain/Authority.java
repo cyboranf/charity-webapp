@@ -17,4 +17,9 @@ public class Authority {
 
     @Column(length = 30)
     private String authority;
+
+    public Authority(String email, String authority) {
+        this.email = email;
+        this.authority = authority;
+    }
 }
