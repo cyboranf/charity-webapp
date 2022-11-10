@@ -40,7 +40,13 @@ public class Donation {
     private LocalTime pickUpTime;
     @Column(name = "pick_up_comment")
     private String pickUpComment;
-
+    @Column
+    private boolean received;
+    @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate confirmDate;
+    @OneToOne
+    private User user;
 
 
 }
