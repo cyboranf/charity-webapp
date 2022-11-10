@@ -11,6 +11,8 @@ import pl.project.charity.repository.ChangeTokenRepository;
 import pl.project.charity.repository.UserRepository;
 import pl.project.charity.repository.VerificationTokenRepository;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class UserService {
@@ -32,6 +34,10 @@ public class UserService {
 
     public User findByEmail(String email) {
         return userRepository.findFirstByEmail(email);
+    }
+
+    public List<User> findAll(){
+        return userRepository.findAll();
     }
 
     public User findById(Long id) {
