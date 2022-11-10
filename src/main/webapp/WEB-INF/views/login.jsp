@@ -1,3 +1,8 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -37,14 +42,14 @@
     </div>
     <form:form method="post">
         <div class="form-group">
-            <input type="text" id="email" name="email" placeholder="Email"/>
+            <input type="text" name="username" placeholder="Email"/>
         </div>
         <div class="form-group">
-            <input type="password" id="password" name="password" placeholder="Hasło"/>
+            <input type="password" name="password" placeholder="Hasło"/>
         </div>
 
         <div class="form-group form-group--buttons">
-            <a href="/" class="btn" type="submit">Zaloguj się</a>
+            <button class="btn" type="submit">Zaloguj się</button>
             <a href="/register" class="btn btn--without-border">Załóż konto</a>
             <a href="/password" class="btn btn--without-border">Nie pamiętam hasła</a>
         </div>
