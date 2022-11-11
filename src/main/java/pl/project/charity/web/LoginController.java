@@ -9,28 +9,23 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.project.charity.domain.User;
+import pl.project.charity.domain.VerificationToken;
 import pl.project.charity.service.UserService;
+import pl.project.charity.service.VerificationTokenService;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class LoginController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final VerificationTokenService verificationTokenService;
 
-    public LoginController(UserService userService, PasswordEncoder passwordEncoder) {
+    public LoginController(UserService userService, PasswordEncoder passwordEncoder, VerificationTokenService verificationTokenService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
-    }
-
-    @GetMapping("/login")
-    public String showLoginForm(Model model) {
-        model.addAttribute("user", new User());
-
-
-        return "login";
+        this.verificationTokenService = verificationTokenService;
     }
 
 
@@ -62,6 +57,18 @@ public class LoginController {
         user.setAccess(true);
         userService.save(user);
         return "user";
+    }
+
+    @GetMapping("registerConfirm")
+    public String registerConfirm(@RequestParam("token") String token) {
+        VerificationToken verificationToken = verificationTokenService.findFirstByToken(token);
+        userService.confirmUser(verificationToken.getToken());
+        return "register-confirmation";
+    }
+
+    @ModelAttribute("users")
+    public List<User> users() {
+        return userService.findAll();
     }
 
 
