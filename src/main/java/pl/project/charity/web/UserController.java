@@ -82,7 +82,7 @@ public class UserController {
         User user = userService.findByEmail(password.getEmail());
 
         if (!passwordEncoder.matches(password.getPassword(), user.getPassword())) {
-            result.rejectValue("email", "error.password", "Błąd potwierdzenia nowego hasła");
+            result.rejectValue("email", "error.password", "Błędne aktualne hasło");
             model.addAttribute("password", password);
             return "changePassword";
         }
