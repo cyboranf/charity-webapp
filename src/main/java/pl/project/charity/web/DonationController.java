@@ -1,5 +1,6 @@
 package pl.project.charity.web;
 
+import org.apache.tomcat.jni.Local;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,9 @@ import pl.project.charity.service.InstitutionService;
 import pl.project.charity.service.UserService;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/donation")
@@ -38,9 +41,9 @@ public class DonationController {
 
     @GetMapping("/add")
     public String donationForm(Model model, @AuthenticationPrincipal UserDetails userDetails) {
-        String email=userDetails.getUsername();
-        User user=userService.findByEmail(email);
-        if (!user.isAccess()){
+        String email = userDetails.getUsername();
+        User user = userService.findByEmail(email);
+        if (!user.isAccess()) {
             return "noAccess";
         }
         model.addAttribute("donation", new Donation());
@@ -54,8 +57,8 @@ public class DonationController {
             model.addAttribute("donation", donation);
             return "form";
         }
-        String email=userDetails.getUsername();
-        User user=userService.findByEmail(email);
+        String email = userDetails.getUsername();
+        User user = userService.findByEmail(email);
         donation.setUser(user);
         donation.setReceived(false);
         donationService.save(donation);
@@ -63,6 +66,31 @@ public class DonationController {
         return "formConfirmation";
     }
 
+    @GetMapping("/donations")
+    public String myDonations(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        String email = userDetails.getUsername();
+        User user = userService.findByEmail(email);
+        List<Donation> myDonations = donationService.myDonations(user.getId());
+        model.addAttribute("myDonations", myDonations);
+        return "donations";
+    }
+
+    @GetMapping("/donationDetails/{id}")
+    public String donationDetails(@PathVariable Long id, Model model) {
+        Donation donation = donationService.findById(id);
+        model.addAttribute("donation", donation);
+        return "donationDetails";
+    }
+
+    @GetMapping("/donation/confirmation/{id}")
+    public String donationConfirmation(@PathVariable Long id) {
+        Donation donation = donationService.findById(id);
+        LocalDate localDate = LocalDate.now();
+        donation.setConfirmDate(localDate);
+        donation.setReceived(true);
+        donationService.save(donation);
+        return "redirect:/donations";
+    }
 
 
     @ModelAttribute("categories")
@@ -74,7 +102,6 @@ public class DonationController {
     public List<Institution> institutions() {
         return institutionService.findAll();
     }
-
 
 
 }

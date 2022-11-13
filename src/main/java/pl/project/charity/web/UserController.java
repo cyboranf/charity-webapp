@@ -7,10 +7,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import pl.project.charity.domain.Authority;
+import pl.project.charity.domain.ChangeToken;
 import pl.project.charity.domain.Institution;
 import pl.project.charity.domain.User;
 import pl.project.charity.models.Password;
@@ -65,11 +64,11 @@ public class UserController {
     }
 
     @RequestMapping("/user/changePassword/{id}")
-    public String changePasswordForm(@PathVariable long id, Model model){
-        User user=userService.findById(id);
-        Password password=new Password();
+    public String changePasswordForm(@PathVariable long id, Model model) {
+        User user = userService.findById(id);
+        Password password = new Password();
         password.setEmail(user.getEmail());
-        model.addAttribute("password",password);
+        model.addAttribute("password", password);
         return "changePassword";
     }
 
@@ -86,9 +85,9 @@ public class UserController {
             model.addAttribute("password", password);
             return "changePassword";
         }
-        if (!password.getNewPassword().equals(password.getMatchingNewPassword())){
-            result.rejectValue("email","error.password","Błąd potwierdzenia nowego hasła");
-            model.addAttribute("password",password);
+        if (!password.getNewPassword().equals(password.getMatchingNewPassword())) {
+            result.rejectValue("email", "error.password", "Błąd potwierdzenia nowego hasła");
+            model.addAttribute("password", password);
             return "changePassword";
         }
         user.setPassword(passwordEncoder.encode(password.getNewPassword()));
@@ -96,6 +95,69 @@ public class UserController {
         return "changePassword-confirmation";
 
     }
+
+    @RequestMapping("/user/edit/{id}")
+    public String editUserForm(@PathVariable long id, Model model) {
+        User user = userService.findById(id);
+        model.addAttribute("user", user);
+        return "editUser";
+    }
+
+    @GetMapping("/user/edit")
+    public String editUser(@Valid User user, BindingResult result) {
+        if (result.hasErrors()) {
+            return "editUser";
+        }
+        User userToChange = userService.findById(user.getId());
+        Authority authority = authorityService.findFirstBtEmail(userToChange.getEmail());
+        authority.setEmail(user.getEmail());
+        authorityService.save(authority);
+
+        userToChange.setEmail(user.getEmail());
+        userToChange.setFirstName(user.getFirstName());
+        userToChange.setLastName(user.getLastName());
+        userService.save(userToChange);
+
+        return "changeUser-confirmation";
+    }
+
+    @RequestMapping("/emailChange/{id}")
+    public String changeEmailForm(@PathVariable long id, Model model) {
+        User user = userService.findById(id);
+        ChangeToken changeToken = new ChangeToken();
+        changeToken.setEmail(user.getEmail());
+        model.addAttribute("changeToken", changeToken);
+        return "editEmail";
+    }
+
+    @PostMapping("/emailChange")
+    public String changeEmail(@Valid ChangeToken changeToken, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "editEmail";
+        }
+        if (userService.findByEmail(changeToken.getNewEmail()) != null) {
+            result.rejectValue("newEmail", "error.changeToken", "Taki mail już istnieje");
+            model.addAttribute("changeToken", changeToken);
+            return "editEmail";
+        }
+
+        User user = userService.findByEmail(changeToken.getEmail());
+        user.setChangeToken(changeToken);
+        userService.save(user);
+
+        //wysylanie maila
+
+        return "changeEmailSend";
+    }
+
+    @GetMapping("/emailChange")
+    public String changeEmailConfirm(@RequestParam("token") String token) {
+        ChangeToken changeToken = changeTokenRepository.findFirstByToken(token);
+        userService.confirmChangeEmail(changeToken.getToken());
+        return "changeEmailConfirmation";
+    }
+
+
 
     @ModelAttribute("users")
     public List<User> users() {
