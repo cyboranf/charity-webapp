@@ -17,8 +17,8 @@ public class DonationService {
         this.donationRepository = donationRepository;
     }
 
-    public Optional<Donation> findById(Long id) {
-        return donationRepository.findById(id);
+    public Donation findById(Long id) {
+        return donationRepository.findFirstById(id);
     }
 
     public Donation save(Donation donation) {
@@ -39,5 +39,13 @@ public class DonationService {
         } catch (NullPointerException exception) {
             return 0;
         }
+    }
+
+    public List<Donation> myDonations(Long id) {
+        return donationRepository.myDonations(id);
+    }
+
+    public List<Donation> donationByInstitutionId(Long id) {
+        return donationRepository.donationsByInstitutionId(id);
     }
 }

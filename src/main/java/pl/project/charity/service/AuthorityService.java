@@ -17,4 +17,11 @@ public class AuthorityService {
     public Authority findFirstBtEmail(String email){
         return authorityRepository.findFirstByEmail(email);
     }
+
+    public Authority save(Authority authority){
+        return authorityRepository.save(authority);
+    }
+    public void delete(Authority authority){
+        authorityRepository.delete(authority);
+    }
 }
