@@ -38,24 +38,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     protected void configure(final HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http
+                .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/register*").permitAll()
                 .antMatchers("/password*").permitAll()
                 .antMatchers("/email*").permitAll()
                 .antMatchers("/login*").permitAll()
                 .antMatchers("/resources/css/**", "/resources/images/**", "/resources/js/**").permitAll()
-                .antMatchers("/admin/**").hasAuthority("Admin")
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .failureUrl("/login?error=true").permitAll()
-                .defaultSuccessUrl("/user", true).and()
+                .failureUrl("/login?error=true")
+                .permitAll()
+                .defaultSuccessUrl("/user", true)
+                .and()
                 .logout()
                 .logoutSuccessUrl("/login?logout=true")
                 .logoutRequestMatcher(new AntPathRequestMatcher("/perform_logout", "GET"))
-                .deleteCookies("JSESSIONID").permitAll();
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .permitAll();
     }
 
 
