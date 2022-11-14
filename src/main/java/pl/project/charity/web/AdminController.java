@@ -28,6 +28,7 @@ public class AdminController {
     private final ChangeTokenRepository changeTokenRepository;
     private final DonationService donationService;
 
+
     public AdminController(UserService userService, PasswordEncoder passwordEncoder, AuthorityService authorityService, VerificationTokenService verificationTokenService, ChangeTokenRepository changeTokenRepository, DonationService donationService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
