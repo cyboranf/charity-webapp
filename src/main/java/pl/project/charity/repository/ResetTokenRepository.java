@@ -6,4 +6,6 @@ import pl.project.charity.domain.ResetToken;
 
 public interface ResetTokenRepository extends JpaRepository<ChangeToken,String> {
     ResetToken findFirstByToken(String token);
+    void save(ResetToken resetToken);
+    void delete(ResetToken resetToken);
 }
