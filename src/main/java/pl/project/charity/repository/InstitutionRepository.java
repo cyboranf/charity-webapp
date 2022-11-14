@@ -8,7 +8,7 @@ import pl.project.charity.domain.Institution;
 
 
 public interface InstitutionRepository extends JpaRepository<Institution,Long> {
-
+        Institution findFirstById(Long id);
 
 
 }

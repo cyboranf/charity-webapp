@@ -17,8 +17,8 @@ public class InstitutionService {
         this.institutionRepository = institutionRepository;
     }
 
-    public Optional<Institution> findById(Long id) {
-        return institutionRepository.findById(id);
+    public Institution findById(Long id) {
+        return institutionRepository.findFirstById(id);
     }
 
     public List<Institution> findAll() {
@@ -27,6 +27,10 @@ public class InstitutionService {
 
     public Institution save(Institution institution) {
         return institutionRepository.save(institution);
+    }
+
+    public void delete(Institution institution){
+        institutionRepository.delete(institution);
     }
 
 
