@@ -13,11 +13,12 @@ import java.util.Locale;
 
 @Configuration
 public class CharityAppConfig implements WebMvcConfigurer {
+    @Override
+    public void addViewControllers(final ViewControllerRegistry registry) {
 
-
-    public void addVewControllers(final ViewControllerRegistry registry){
         registry.addViewController("/login");
     }
+
 
     @Bean
     public ViewResolver viewResolver() {
@@ -34,8 +35,6 @@ public class CharityAppConfig implements WebMvcConfigurer {
         localeResolver.setDefaultLocale(new Locale("pl", "PL"));
         return localeResolver;
     }
-
-
 
 
 }
