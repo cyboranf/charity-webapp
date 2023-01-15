@@ -47,7 +47,7 @@ public class LoginController {
             model.addAttribute("user", user);
             return "register";
         }
-        if (!user.getPassword().equals(user.getMatchingPassword())) {
+        if  (!user.getPassword().equals(user.getMatchingPassword())) {
             result.rejectValue("password", "error.user", "Podane hasłą są różne");
             model.addAttribute("user", user);
             return "register";
